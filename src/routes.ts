@@ -1,26 +1,26 @@
-import {Router, Request, Response, response} from 'express';
+import {Router} from 'express'
 import {UserController} from './controller/UserController';
-import { ActivyController } from './controller/ActivyController';
 import {CourseUnitController} from './controller/CourseUnitController';
-import {AuthenticateController} from './controller/AuthenticateController';
+import {ActivyController} from './controller/ActivyController';
+import { AuthenticateController } from './controller/AuthenticateController';
 import authenticated from './middlewares/authenticated';
 
 
-const userController = new UserController()
-const activyController = new ActivyController()
-const courseUnitController = new CourseUnitController()
-const authenticateController = new AuthenticateController()
+const userController = new UserController();
+const courseUnitController = new CourseUnitController();
+const activyController = new ActivyController();
+const authenticateController = new AuthenticateController();
 
-const routes = Router()
+const routes = Router();
 
-routes.post('/auth', authenticateController.create)
-
-routes.get('/user', authenticated, userController.show);
-routes.get('/activy', authenticated, activyController.show);
-routes.get('/courseunit', authenticated, courseUnitController.show);
+routes.post('/auth', authenticateController.create);
 
 routes.post('/user', userController.create);
-routes.post('/activy', authenticated, activyController.create);
 routes.post('/courseunit', authenticated, courseUnitController.create);
+routes.post('/activy', authenticated, activyController.create);
 
-export default routes
+routes.get('/user', authenticated, userController.show);
+routes.get('/courseunit', authenticated, courseUnitController.show);
+routes.get('/activy', authenticated, activyController.show);
+    
+export default routes;
